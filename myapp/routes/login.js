@@ -6,13 +6,13 @@ var mysql = require('mysql');
 // const func = require('../model/login');
 
 var con = mysql.createConnection({
-  host: "192.168.14.1",
-  user: "root",
-  password: "1234",
-  database: "app_db"
+  host: "easylearning.guru",
+  user: "kcc_student",
+  password: "Kccitm.edu.in1",
+  database: "kccStudent"
 });
 
-
+con.connect()
 
 router.get('/', function (req, res, next) {
   console.log("Nitya");
@@ -29,14 +29,33 @@ router.get('/', function (req, res, next) {
 });
 
 router.get('/getLogin', function (req, res, next) {
-  getLoginPost(req, res, next)    
-  
-  // res.send({"name":"himani"})
-  //res.render('teacher')
-  // res.json({ "Name": requ })
+
+
+  con.query("select * from Punit", function (err, result) {
+    if (err) throw err;
+    console.log(result);
+    res.render('login', { "data": result })
+  });
+
 });
+
+router.post('/updateLogin', function (req, res, next) {
+  console.log(req.body)
+  res.json({ "Name": "Hello" })
+});
+
+router.post('/deleteLogin', function (req, res, next) {
+  console.log(req.body.id)
+  // res.json({ "Name": "Hello" })
+  con.query("DELETE FROM Punit where id ="+req.body.id, function (err, result) {
+    if (err) res.json({code:0});
+    console.log(result);
+    res.json({code:1})
+  });
+});
+
 router.post('/getLogin', function (req, res, next) {
-  getLoginPost(req, res, next)           
+  getLoginPost(req, res, next)
   // console.log(req.body)
   // res.send({"name":"himani"})
   //res.render('teacher')
