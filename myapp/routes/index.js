@@ -4,7 +4,7 @@ var router = express.Router();
 /* GET home page. */
 router.get('/', function(req, res, next) {
   console.log(req)
-  res.json({name:"utrkisht"})
+  res.json({name:"punit"})
   // res.render('index', { title: 'Express' });
 });
 
